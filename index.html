@@ -11,70 +11,75 @@
             padding: 0;
             width: 100vw;
             height: 100vh;
-            overscroll-behavior: none; /* Stops the white edge bouncing */
-            background-color: #5a9e16; /* Fallback color */
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            overflow: hidden;
+            overflow: hidden; /* Prevents scrollbars */
+            overscroll-behavior: none; /* Stops the white edge bouncing on swipe */
+            background-color: #5a9e16; /* Base fallback color */
         }
 
-        /* --- MAIN CONTAINER (FIXED BACKGROUND TRANSITION) --- */
+        /* --- MAIN CONTAINER --- */
         .slider-container {
             width: 100vw;
             height: 100vh;
             display: flex;
-            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            /* We transition a CSS variable for a buttery smooth color change */
-            background-color: var(--bg-color, #5a9e16);
-            /* A static lighting overlay to keep the center bright */
-            background-image: radial-gradient(circle at center, rgba(255,255,255,0.4) 0%, rgba(0,0,0,0.1) 100%);
-            transition: background-color 0.4s ease-in-out;
+            justify-content: space-between;
+            padding: 0 10%;
             position: relative;
-            text-align: center;
+            /* Smooth background transition using CSS variable */
+            background-color: var(--bg-color, #5a9e16);
+            /* Static lighting overlay to keep the 3D depth */
+            background-image: radial-gradient(circle at center, rgba(255,255,255,0.3) 0%, rgba(0,0,0,0.1) 100%);
+            transition: background-color 0.4s ease-in-out;
         }
 
         /* --- TEXT SECTION --- */
         .text-content {
             z-index: 10;
             color: white;
-            transition: opacity 0.3s ease;
-            margin-bottom: 20px;
+            max-width: 450px;
+            transition: opacity 0.4s ease;
         }
 
         .title {
-            font-size: 3.5rem;
+            font-size: 4rem;
             font-weight: 900;
-            margin-bottom: 5px;
+            line-height: 1.1;
+            margin-bottom: 10px;
+            text-transform: capitalize;
         }
 
         .subtitle {
-            font-size: 1.2rem;
-            font-weight: 400;
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin-bottom: 20px;
             opacity: 0.9;
-            margin-bottom: 10px;
         }
 
         .price {
-            font-size: 1.8rem;
+            font-size: 2.5rem;
             font-weight: bold;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
 
-        /* --- NEW: ACTION BUTTONS (WHATSAPP, INSTA, EMAIL) --- */
+        .price span {
+            font-size: 1.2rem;
+            font-weight: normal;
+            opacity: 0.8;
+        }
+
+        /* --- ACTION BUTTONS (WHATSAPP, INSTA, EMAIL) --- */
         .action-buttons {
             display: flex;
             gap: 15px;
-            justify-content: center;
             align-items: center;
-            z-index: 10;
         }
 
         .btn-main {
             display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 12px 25px;
+            gap: 10px;
+            padding: 15px 30px;
             background: white;
             color: #333;
             border: none;
@@ -82,84 +87,95 @@
             font-size: 1.1rem;
             font-weight: bold;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             text-decoration: none;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
+        }
+
+        .btn-main:hover {
+            transform: scale(1.05);
         }
 
         .btn-icon {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 45px;
-            height: 45px;
+            width: 50px;
+            height: 50px;
             background: white;
             border-radius: 50%;
             color: #333;
             text-decoration: none;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
         }
 
-        /* SVG Icon styling */
+        .btn-icon:hover {
+            transform: scale(1.1);
+        }
+
         .btn-main svg, .btn-icon svg {
-            width: 20px;
-            height: 20px;
+            width: 22px;
+            height: 22px;
             fill: currentColor;
         }
 
         /* --- PRODUCT DISPLAY --- */
         .product-display {
             position: relative;
-            width: 100%;
-            max-width: 400px;
-            height: 50vh;
+            width: 500px;
+            height: 600px;
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 5;
-            margin-top: 20px;
         }
 
         .main-bottle {
-            height: 100%;
+            height: 80%;
             object-fit: contain;
             z-index: 6;
-            filter: drop-shadow(0 20px 20px rgba(0,0,0,0.3));
-            transition: opacity 0.3s ease, transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            filter: drop-shadow(0 30px 30px rgba(0,0,0,0.4));
+            transition: opacity 0.4s ease, transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         /* --- FLOATING FRUITS --- */
         .floating-fruits img {
             position: absolute;
-            width: 60px;
+            width: 80px;
             height: auto;
             object-fit: contain;
             z-index: 7;
-            filter: drop-shadow(0 10px 10px rgba(0,0,0,0.2));
-            transition: opacity 0.3s ease;
-            animation: float 3s infinite ease-in-out alternate;
+            filter: drop-shadow(0 15px 15px rgba(0,0,0,0.3));
+            transition: opacity 0.4s ease;
+            animation: float 4s infinite ease-in-out alternate;
         }
 
-        .fruit-1 { top: 10%; left: 0%; animation-delay: 0s !important; width: 70px !important; }
-        .fruit-2 { top: 20%; right: 0%; animation-delay: 1s !important; width: 50px !important; }
-        .fruit-3 { bottom: 10%; left: 10%; animation-delay: 2s !important; width: 60px !important; }
-        .fruit-4 { bottom: 20%; right: 10%; animation-delay: 1.5s !important; width: 80px !important; }
+        .fruit-1 { top: 10%; left: 10%; animation-delay: 0s !important; width: 100px !important; }
+        .fruit-2 { top: 20%; right: 5%; animation-delay: 1s !important; width: 70px !important; }
+        .fruit-3 { bottom: 15%; left: 0%; animation-delay: 2s !important; width: 90px !important; }
+        .fruit-4 { bottom: 25%; right: 10%; animation-delay: 1.5s !important; width: 110px !important; }
 
         @keyframes float {
             0% { transform: translateY(0px) rotate(0deg); }
-            100% { transform: translateY(-20px) rotate(10deg); }
+            100% { transform: translateY(-30px) rotate(15deg); }
         }
 
         /* --- CONTROLS --- */
-        .dots-container {
+        .controls {
+            position: absolute;
+            right: 5%;
+            top: 50%;
+            transform: translateY(-50%);
             display: flex;
-            gap: 10px;
-            margin-top: 30px;
-            z-index: 10;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 20;
         }
 
         .dot {
-            width: 10px;
-            height: 10px;
+            width: 15px;
+            height: 15px;
             border-radius: 50%;
             border: 2px solid white;
             background: transparent;
@@ -172,31 +188,35 @@
             transform: scale(1.3);
         }
 
-        /* Arrows matching your video */
+        /* Navigation Arrows */
         .nav-arrows {
             position: absolute;
-            top: 60%;
-            width: 100%;
-            padding: 0 20px;
+            bottom: 10%;
+            left: 10%;
             display: flex;
-            justify-content: space-between;
+            gap: 20px;
             z-index: 20;
-            pointer-events: none; /* Let clicks pass through empty space */
         }
 
         .arrow-btn {
-            background: transparent;
-            border: 1px solid rgba(255,255,255,0.5);
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
             color: white;
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             cursor: pointer;
             display: flex;
             justify-content: center;
             align-items: center;
-            pointer-events: auto;
+            transition: 0.3s;
+            backdrop-filter: blur(5px);
+        }
+
+        .arrow-btn:hover {
+            background: white;
+            color: #333;
         }
     </style>
 </head>
@@ -207,39 +227,40 @@
         <div class="text-content" id="text-box">
             <h1 class="title" id="flavor-title">Green Apple</h1>
             <p class="subtitle" id="flavor-desc">Crisp, refreshing, and perfectly tart.</p>
-            <p class="price">₹20 <span style="font-size: 1rem; font-weight: normal;">ONLY</span></p>
-        </div>
-
-        <div class="action-buttons">
-            <a href="#" class="btn-main">
-                <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                Order on WhatsApp
-            </a>
-            <a href="#" class="btn-icon">
-                <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.203 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-            </a>
-            <a href="#" class="btn-icon">
-                <svg viewBox="0 0 24 24"><path d="M0 3v18h24v-18h-24zm21.518 2l-9.518 7.713-9.518-7.713h19.036zm-19.518 14v-11.817l10 8.104 10-8.104v11.817h-20z"/></svg>
-            </a>
+            <p class="price">₹20 <span>ONLY</span></p>
+            
+            <div class="action-buttons">
+                <a href="#" class="btn-main">
+                    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                    Order on WhatsApp
+                </a>
+                <a href="#" class="btn-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.203 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                </a>
+                <a href="#" class="btn-icon">
+                    <svg viewBox="0 0 24 24"><path d="M0 3v18h24v-18h-24zm21.518 2l-9.518 7.713-9.518-7.713h19.036zm-19.518 14v-11.817l10 8.104 10-8.104v11.817h-20z"/></svg>
+                </a>
+            </div>
         </div>
 
         <div class="product-display">
-            <div class="nav-arrows">
-                <button class="arrow-btn" onclick="prevFlavor()">&#8592;</button>
-                <button class="arrow-btn" onclick="nextFlavor()">&#8594;</button>
-            </div>
-
             <img src="cravejuizgreenapple.png" alt="Bottle" class="main-bottle" id="main-bottle">
             
             <div class="floating-fruits" id="fruit-layer">
-                <img src="greenapple.png" class="fruit-1">
-                <img src="greenapple.png" class="fruit-2">
-                <img src="greenapple.png" class="fruit-3">
-                <img src="greenapple.png" class="fruit-4">
+                <img src="greenapple.png" class="fruit-1" alt="fruit">
+                <img src="greenapple.png" class="fruit-2" alt="fruit">
+                <img src="greenapple.png" class="fruit-3" alt="fruit">
+                <img src="greenapple.png" class="fruit-4" alt="fruit">
             </div>
         </div>
 
-        <div class="dots-container" id="dots-container"></div>
+        <div class="controls" id="dots-container">
+            </div>
+
+        <div class="nav-arrows">
+            <button class="arrow-btn" onclick="prevFlavor()">&#8592;</button>
+            <button class="arrow-btn" onclick="nextFlavor()">&#8594;</button>
+        </div>
 
     </div>
 
@@ -269,7 +290,7 @@
             {
                 name: "Litchi",
                 desc: "Delicately sweet and beautifully floral.",
-                bgColor: "#b0bec5", // Grayish tone to contrast the white elements
+                bgColor: "#b0bec5",
                 bottle: "cravejuizlitchi.png",
                 fruit: "litchi.png"
             }
@@ -283,6 +304,7 @@
         const bottleEl = document.getElementById('main-bottle');
         const fruitLayer = document.getElementById('fruit-layer');
         const dotsContainer = document.getElementById('dots-container');
+        const textBox = document.getElementById('text-box');
 
         // Initialize Dots
         flavors.forEach((_, index) => {
@@ -296,51 +318,57 @@
         const dots = document.querySelectorAll('.dot');
 
         function changeFlavor(index) {
-            if (index === currentIndex) return;
+            if (index === currentIndex) return; 
             currentIndex = index;
             const data = flavors[index];
 
-            // 1. Fade out current elements rapidly
+            // 1. Fade out current elements
             bottleEl.style.opacity = 0;
-            bottleEl.style.transform = "scale(0.8) translateY(30px)";
+            bottleEl.style.transform = "scale(0.8) translateY(50px)";
             fruitLayer.style.opacity = 0;
-            titleEl.style.opacity = 0;
-            descEl.style.opacity = 0;
+            textBox.style.opacity = 0;
 
             // Update active dot
             dots.forEach(d => d.classList.remove('active'));
             dots[currentIndex].classList.add('active');
 
-            // 2. Change Background Color (Using CSS variable so it transitions instantly without flashing)
+            // 2. Change Background using CSS Variable
             bgContainer.style.setProperty('--bg-color', data.bgColor);
-            document.body.style.backgroundColor = data.bgColor; // Fallback sync
+            document.body.style.backgroundColor = data.bgColor; // Ensure body matches so no white edges peek through
 
-            // 3. Swap and fade in
+            if (data.name === "Litchi") {
+                textBox.style.color = "#333";
+            } else {
+                textBox.style.color = "white";
+            }
+
+            // 3. Swap sources and fade back in
             setTimeout(() => {
                 titleEl.textContent = data.name;
                 descEl.textContent = data.desc;
                 bottleEl.src = data.bottle;
                 
                 const fruits = fruitLayer.querySelectorAll('img');
-                fruits.forEach(img => img.src = data.fruit);
+                fruits.forEach(img => {
+                    img.src = data.fruit;
+                });
 
                 bottleEl.style.opacity = 1;
                 bottleEl.style.transform = "scale(1) translateY(0)";
                 fruitLayer.style.opacity = 1;
-                titleEl.style.opacity = 1;
-                descEl.style.opacity = 1;
-            }, 300); // Quick 300ms swap for snappy native feel
+                textBox.style.opacity = 1;
+            }, 400); 
         }
 
         function nextFlavor() {
             let nextIndex = currentIndex + 1;
-            if (nextIndex >= flavors.length) nextIndex = 0;
+            if (nextIndex >= flavors.length) nextIndex = 0; 
             changeFlavor(nextIndex);
         }
 
         function prevFlavor() {
             let prevIndex = currentIndex - 1;
-            if (prevIndex < 0) prevIndex = flavors.length - 1;
+            if (prevIndex < 0) prevIndex = flavors.length - 1; 
             changeFlavor(prevIndex);
         }
     </script>
