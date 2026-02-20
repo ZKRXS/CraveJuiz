@@ -445,7 +445,18 @@
         const dotsContainer = document.getElementById('dots-container');
         const textBox = document.getElementById('text-box');
 
+        // --- NEW: Preload Images to prevent lag on first click ---
+        function preloadImages() {
+            flavors.forEach(flavor => {
+                const img1 = new Image();
+                img1.src = flavor.bottle;
+                const img2 = new Image();
+                img2.src = flavor.fruit;
+            });
+        }
+
         window.onload = () => {
+            preloadImages(); // Run the preloader in the background
             setTimeout(() => {
                 fruitLayer.classList.add('active');
             }, 100);
@@ -487,7 +498,6 @@
             
             textBox.style.transition = "all 0.4s ease";
             
-            // Adjust text slide direction based on screen width
             if (window.innerWidth <= 900) {
                 textBox.style.transform = "translateX(-40px)"; 
             } else {
@@ -561,4 +571,5 @@
         }
     </script>
 </body>
+
 </html>
