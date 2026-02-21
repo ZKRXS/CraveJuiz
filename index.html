@@ -13,9 +13,10 @@
         }
 
         body {
-            /* Changed to allow scrolling on very small mobile screens while preventing side-scrolling */
+            /* Allows natural scrolling on the Y-axis but prevents left/right swipe bouncing */
             overflow-x: hidden; 
             overflow-y: auto;
+            overscroll-behavior-y: auto;
         }
 
         /* --- MAIN CONTAINER --- */
@@ -115,7 +116,7 @@
             display: flex;
             align-items: center;
             gap: 15px;
-            flex-wrap: wrap; /* Allows buttons to wrap on small screens */
+            flex-wrap: wrap; 
         }
 
         .action-btn {
@@ -289,60 +290,66 @@
             .slider-container {
                 flex-direction: column;
                 justify-content: flex-start;
-                padding: 40px 5% 100px 5%; /* Extra padding at bottom for nav */
+                /* Generous padding top and bottom so it scrolls naturally */
+                padding: 60px 5% 150px 5%; 
+                height: auto; /* Allow container to grow beyond 100vh */
             }
 
             .text-content {
                 text-align: center;
                 align-items: center;
                 margin-top: 20px;
+                /* Big space between the action buttons and the bottle */
+                margin-bottom: 60px; 
                 max-width: 100%;
             }
 
-            .title { font-size: 2.8rem; }
-            .subtitle { font-size: 1.2rem; margin-bottom: 15px; }
-            .price { font-size: 2rem; margin-bottom: 20px; }
+            .title { font-size: 3.2rem; margin-bottom: 15px; }
+            .subtitle { font-size: 1.3rem; margin-bottom: 20px; }
+            .price { font-size: 2.2rem; margin-bottom: 30px; }
 
-            .perk-badge { font-size: 0.95rem; padding: 10px 15px; }
-            .contact-actions { justify-content: center; margin-bottom: 20px;}
-            .action-btn { font-size: 1rem; padding: 12px 20px; }
+            .perks { gap: 12px; margin-bottom: 40px; }
+            .perk-badge { font-size: 1rem; padding: 12px 18px; }
+            
+            .contact-actions { justify-content: center; margin-bottom: 20px; }
+            .action-btn { font-size: 1.05rem; padding: 14px 22px; }
 
             .product-display {
                 width: 100%;
-                height: 400px; /* Smaller height for mobile */
+                /* Massive height allows the bottle and fruits to look glorious without squishing */
+                height: 550px; 
             }
 
-            .main-bottle { height: 85%; }
+            .main-bottle { height: 95%; }
 
-            /* Shrink fruits for mobile so they don't cover the screen */
-            .fruit-1 img { width: 80px; }    
-            .fruit-2 img { width: 60px; }   
-            .fruit-3 img { width: 70px; }   
-            .fruit-4 img { width: 90px; } 
+            /* Size the fruits down slightly, but let them float widely */
+            .fruit-1 img { width: 90px; }    
+            .fruit-2 img { width: 70px; }   
+            .fruit-3 img { width: 80px; }   
+            .fruit-4 img { width: 100px; } 
 
-            /* Tighter pop-out coordinates for mobile */
-            #fruit-layer.active .fruit-1 { transform: translate(-130px, -120px) scale(1); }
-            #fruit-layer.active .fruit-2 { transform: translate(140px, -130px) scale(1); }
-            #fruit-layer.active .fruit-3 { transform: translate(-120px, 100px) scale(1); }
-            #fruit-layer.active .fruit-4 { transform: translate(120px, 120px) scale(1); }
+            /* Give fruits lots of room on the Y axis since it scrolls now */
+            #fruit-layer.active .fruit-1 { transform: translate(-120px, -180px) scale(1); }
+            #fruit-layer.active .fruit-2 { transform: translate(120px, -200px) scale(1); }
+            #fruit-layer.active .fruit-3 { transform: translate(-110px, 160px) scale(1); }
+            #fruit-layer.active .fruit-4 { transform: translate(120px, 180px) scale(1); }
 
-            /* Move Controls to Bottom Center */
+            /* Position controls neatly at the very bottom of the page */
             .controls {
                 top: auto;
-                bottom: 20px;
+                bottom: 30px;
                 right: 50%;
                 transform: translateX(50%);
-                flex-direction: row; /* Horizontal dots */
+                flex-direction: row; /* Dots go horizontally */
             }
 
-            /* Move Nav Arrows to the sides of the bottle */
             .nav-arrows {
-                bottom: auto;
-                top: 75%; /* Align roughly with the bottle */
-                left: 0;
-                width: 100%;
+                bottom: 80px; /* Sits right above the dots */
+                top: auto;
+                left: 5%;
+                width: 90%;
                 justify-content: space-between;
-                padding: 0 15px;
+                padding: 0;
             }
         }
     </style>
@@ -445,7 +452,6 @@
         const dotsContainer = document.getElementById('dots-container');
         const textBox = document.getElementById('text-box');
 
-        // --- NEW: Preload Images to prevent lag on first click ---
         function preloadImages() {
             flavors.forEach(flavor => {
                 const img1 = new Image();
@@ -456,7 +462,7 @@
         }
 
         window.onload = () => {
-            preloadImages(); // Run the preloader in the background
+            preloadImages(); 
             setTimeout(() => {
                 fruitLayer.classList.add('active');
             }, 100);
@@ -498,7 +504,6 @@
 
             textBox.style.transition = "all 0.4s ease";
 
-            // Adjust text slide direction based on screen width
             if (window.innerWidth <= 900) {
                 textBox.style.transform = "translateX(-40px)"; 
             } else {
