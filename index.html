@@ -12,11 +12,16 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
+        /* --- ANTI-BOUNCE FIX --- */
+        html, body {
+            background-color: #5a9e16; /* Matches initial green edge */
+            transition: background-color 0.8s ease-in-out;
+        }
+
         body {
-            /* Allows natural scrolling on the Y-axis but prevents left/right swipe bouncing */
             overflow-x: hidden; 
             overflow-y: auto;
-            overscroll-behavior-y: auto;
+            overscroll-behavior: none; /* Kills the white bounce on mobile entirely */
         }
 
         /* --- MAIN CONTAINER --- */
@@ -290,21 +295,24 @@
             .slider-container {
                 flex-direction: column;
                 justify-content: flex-start;
-                /* Generous padding top and bottom so it scrolls naturally */
                 padding: 60px 5% 150px 5%; 
-                height: auto; /* Allow container to grow beyond 100vh */
+                height: auto; 
             }
 
             .text-content {
                 text-align: center;
                 align-items: center;
                 margin-top: 20px;
-                /* Big space between the action buttons and the bottle */
                 margin-bottom: 60px; 
                 max-width: 100%;
             }
 
-            .title { font-size: 3.2rem; margin-bottom: 15px; }
+            /* --- FIXED TITLES FOR PHONE --- */
+            .title { 
+                font-size: 2.6rem; 
+                margin-bottom: 15px; 
+                white-space: nowrap; /* Forces text to stay on one straight line */
+            }
             .subtitle { font-size: 1.3rem; margin-bottom: 20px; }
             .price { font-size: 2.2rem; margin-bottom: 30px; }
 
@@ -316,35 +324,31 @@
 
             .product-display {
                 width: 100%;
-                /* Massive height allows the bottle and fruits to look glorious without squishing */
                 height: 550px; 
             }
 
             .main-bottle { height: 95%; }
 
-            /* Size the fruits down slightly, but let them float widely */
             .fruit-1 img { width: 90px; }    
             .fruit-2 img { width: 70px; }   
             .fruit-3 img { width: 80px; }   
             .fruit-4 img { width: 100px; } 
 
-            /* Give fruits lots of room on the Y axis since it scrolls now */
             #fruit-layer.active .fruit-1 { transform: translate(-120px, -180px) scale(1); }
             #fruit-layer.active .fruit-2 { transform: translate(120px, -200px) scale(1); }
             #fruit-layer.active .fruit-3 { transform: translate(-110px, 160px) scale(1); }
             #fruit-layer.active .fruit-4 { transform: translate(120px, 180px) scale(1); }
 
-            /* Position controls neatly at the very bottom of the page */
             .controls {
                 top: auto;
                 bottom: 30px;
                 right: 50%;
                 transform: translateX(50%);
-                flex-direction: row; /* Dots go horizontally */
+                flex-direction: row; 
             }
 
             .nav-arrows {
-                bottom: 80px; /* Sits right above the dots */
+                bottom: 80px; 
                 top: auto;
                 left: 5%;
                 width: 90%;
@@ -355,6 +359,8 @@
     </style>
 </head>
 <body>
+
+    <div id="hard-preload-container" style="display: none; width: 0; height: 0; overflow: hidden;"></div>
 
     <div class="slider-container" id="bg-container">
         <div class="bg-overlay" id="bg-overlay"></div>
@@ -443,6 +449,20 @@
 
         let currentIndex = 0;
 
+        function forcePreloadImages() {
+            const container = document.getElementById('hard-preload-container');
+            flavors.forEach(flavor => {
+                const img1 = document.createElement('img');
+                img1.src = flavor.bottle;
+                container.appendChild(img1);
+                
+                const img2 = document.createElement('img');
+                img2.src = flavor.fruit;
+                container.appendChild(img2);
+            });
+        }
+        forcePreloadImages(); 
+
         const bgContainer = document.getElementById('bg-container');
         const bgOverlay = document.getElementById('bg-overlay');
         const titleEl = document.getElementById('flavor-title');
@@ -452,17 +472,7 @@
         const dotsContainer = document.getElementById('dots-container');
         const textBox = document.getElementById('text-box');
 
-        function preloadImages() {
-            flavors.forEach(flavor => {
-                const img1 = new Image();
-                img1.src = flavor.bottle;
-                const img2 = new Image();
-                img2.src = flavor.fruit;
-            });
-        }
-
         window.onload = () => {
-            preloadImages(); 
             setTimeout(() => {
                 fruitLayer.classList.add('active');
             }, 100);
@@ -484,6 +494,10 @@
             isAnimating = true;
             currentIndex = index;
             const data = flavors[index];
+
+            /* --- Update the body background dynamically to prevent white flashes if pulled --- */
+            document.body.style.backgroundColor = data.color2;
+            document.documentElement.style.backgroundColor = data.color2;
 
             bgOverlay.style.background = `radial-gradient(circle, ${data.color1} 0%, ${data.color2} 100%)`;
             bgOverlay.style.opacity = 1;
@@ -517,8 +531,8 @@
             setTimeout(() => {
                 titleEl.textContent = data.name;
                 descEl.textContent = data.desc;
+                
                 bottleEl.src = data.bottle;
-
                 const fruits = fruitLayer.querySelectorAll('img');
                 fruits.forEach(img => {
                     img.src = data.fruit;
