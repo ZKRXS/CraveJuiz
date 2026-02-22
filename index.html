@@ -201,7 +201,7 @@
         }
 
         .distributor-box li::before {
-            content: "\2713"; /* Clean Checkmark */
+            content: "\2713"; 
             color: #ffd700;
             font-weight: bold;
             font-size: 1.1rem;
@@ -311,8 +311,12 @@
             z-index: 5;
         }
 
+        /* ANDROID FIX: Absolute constraint boundaries added */
         .main-bottle {
             height: 95%;
+            max-height: 100%;
+            width: auto;
+            max-width: 100%;
             object-fit: contain;
             z-index: 10; 
             filter: drop-shadow(0 30px 30px rgba(0,0,0,0.4));
@@ -419,23 +423,28 @@
         /* ========================================= */
         @media (max-width: 900px) {
             .slider-container {
-                /* Flips the layout: Bottle on top, Text on bottom */
                 flex-direction: column;
                 justify-content: flex-start;
                 padding: 20px 5% 50px 5%; 
             }
 
             .right-content {
-                order: 1; /* Forces bottle to the top */
+                order: 1; 
                 width: 100%;
-                height: 450px; /* Reduced height for mobile */
+                height: 400px; /* Locked explicit height so Android can't blow it out */
                 margin-bottom: 20px;
             }
 
-            .product-display { height: 100%; }
-            .main-bottle { height: 90%; }
+            .product-display { height: 100%; width: 100%; }
+            
+            /* ANDROID FIX: Enforce absolute maximums for the bottle size */
+            .main-bottle { 
+                height: 90%; 
+                max-height: 380px; 
+                width: auto;
+                max-width: 100%; /* Keeps it inside screen width */
+            }
 
-            /* Position Arrows strictly beside the bottle on mobile */
             .nav-arrows {
                 bottom: auto;
                 top: 50%;
@@ -446,20 +455,19 @@
                 padding: 0 5%;
             }
 
-            /* Adjust fruits for smaller top area */
+            /* Adjust fruits closer to the bottle */
             .fruit-1 img { width: 80px; }    
             .fruit-2 img { width: 70px; }   
             .fruit-3 img { width: 80px; }   
             .fruit-4 img { width: 90px; } 
 
-            #fruit-layer.active .fruit-1 { transform: translate(-120px, -140px) scale(1); }
-            #fruit-layer.active .fruit-2 { transform: translate(120px, -160px) scale(1); }
-            #fruit-layer.active .fruit-3 { transform: translate(-110px, 120px) scale(1); }
-            #fruit-layer.active .fruit-4 { transform: translate(120px, 140px) scale(1); }
+            #fruit-layer.active .fruit-1 { transform: translate(-100px, -130px) scale(1); }
+            #fruit-layer.active .fruit-2 { transform: translate(100px, -150px) scale(1); }
+            #fruit-layer.active .fruit-3 { transform: translate(-100px, 120px) scale(1); }
+            #fruit-layer.active .fruit-4 { transform: translate(110px, 130px) scale(1); }
 
-            /* Text section settings */
             .left-content {
-                order: 2; /* Forces text below the bottle */
+                order: 2; 
                 max-width: 100%;
                 padding-bottom: 0; 
             }
@@ -470,7 +478,7 @@
             .product-meta { gap: 10px; margin-bottom: 20px; }
             .price { font-size: 2rem; }
 
-            .wa-btn { width: 100%; } /* Full width button on mobile */
+            .wa-btn { width: 100%; } 
             
             .footer-bottom-row {
                 flex-direction: column;
@@ -479,9 +487,9 @@
             }
             .legal-footer { text-align: left; }
 
-            /* Move controls under the bottle, before text */
+            /* Dots positioning */
             .controls {
-                top: 420px; 
+                top: 380px; 
                 bottom: auto; right: 50%;
                 transform: translateX(50%); flex-direction: row; 
             }
@@ -576,29 +584,24 @@
     <script>
         const phoneNumber = "918157802440";
 
-        // Removed hasNata toggle, as you requested Nata for ALL drinks.
         const flavors = [
             {
                 name: "Green Apple",
-                desc: "Crisp, refreshing, and perfectly tart.",
                 color1: "#85e027", color2: "#5a9e16",
                 bottle: "cravejuizgreenapple.png", fruit: "greenapple.png"
             },
             {
                 name: "Mango",
-                desc: "Rich, tropical sweetness in every sip.",
                 color1: "#ffc107", color2: "#ff9800",
                 bottle: "cravejuizmango.png", fruit: "mango.png"
             },
             {
                 name: "Guava",
-                desc: "Exotic, vibrant, and packed with flavor.",
                 color1: "#f48fb1", color2: "#d81b60",
                 bottle: "cravejuizguava.png", fruit: "guava.png"
             },
             {
                 name: "Litchi",
-                desc: "Delicately sweet and beautifully floral.",
                 color1: "#ffffff", color2: "#cfd8dc",
                 bottle: "cravejuizlitchi.png", fruit: "litchi.png"
             }
@@ -618,7 +621,6 @@
         const bgContainer = document.getElementById('bg-container');
         const bgOverlay = document.getElementById('bg-overlay');
         const titleEl = document.getElementById('flavor-title');
-        const descEl = document.getElementById('flavor-desc');
         const detailedDescEl = document.getElementById('detailed-desc');
         const waBtn = document.getElementById('wa-btn');
         const bottleEl = document.getElementById('main-bottle');
@@ -683,7 +685,6 @@
             setTimeout(() => {
                 // Update short text
                 titleEl.textContent = data.name;
-                descEl.textContent = data.desc;
                 
                 // Update dynamic paragraph
                 detailedDescEl.innerHTML = `<strong>${data.name}</strong> flavoured drink with Nata De Coco pieces is a refreshing healthy alternative to soft drink. Nata De Coco jelly bits from Kerala grown coconuts add a bite to this refreshing flavourful drink.<br><br>Manufactured and distributed by: <strong>CRAVE</strong><br>Fssai Registered Company in Kerala`;
