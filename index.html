@@ -45,19 +45,20 @@
             transition: opacity 0.8s ease-in-out; 
         }
 
-        /* --- TEXT SECTION --- */
-        .text-content {
-            z-index: 10;
-            color: white;
+        /* --- TEXT SECTION (LEFT) --- */
+        .left-content {
+            flex: 1;
             max-width: 550px;
-            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); 
+            z-index: 20;
             display: flex;
             flex-direction: column;
-            padding-bottom: 80px; 
+            padding-bottom: 60px; 
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); 
+            color: white;
         }
 
         .title {
-            font-size: 4.2rem;
+            font-size: 3.8rem;
             font-weight: 900;
             line-height: 1;
             margin-bottom: 5px;
@@ -66,17 +67,70 @@
         }
 
         .subtitle {
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             font-weight: 400;
-            margin-bottom: 15px; /* Default spacing */
+            margin-bottom: 15px;
             opacity: 0.95;
-            line-height: 1.4;
-            transition: margin-bottom 0.3s ease;
         }
 
-        /* The Trademark Highlight */
+        /* --- PRODUCT META (Price, Volume, Veg Symbol) --- */
+        .product-meta {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .price {
+            font-size: 2.2rem;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .price span {
+            font-size: 1rem;
+            font-weight: 500;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .volume-badge {
+            font-size: 1rem;
+            font-weight: bold;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 12px;
+            border-radius: 8px;
+            backdrop-filter: blur(5px);
+        }
+
+        .text-content.dark-theme .volume-badge {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .veg-symbol {
+            width: 24px;
+            height: 24px;
+            background: white;
+            border: 2px solid #008000;
+            border-radius: 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .veg-dot {
+            width: 10px;
+            height: 10px;
+            background: #008000;
+            border-radius: 50%;
+        }
+
+        /* --- NATA DE COCO HIGHLIGHT --- */
         .nata-wrapper {
-            display: none; /* Hidden by default */
             margin-bottom: 15px;
         }
 
@@ -86,27 +140,34 @@
             color: #000;
             padding: 4px 12px;
             border-radius: 20px;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: bold;
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
             transform: rotate(-2deg);
         }
 
-        .price {
-            font-size: 2.3rem;
-            font-weight: 900;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        /* --- DETAILED DESCRIPTION & TAGLINE --- */
+        .detailed-desc {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 15px;
+            opacity: 0.9;
         }
 
-        .price span {
-            font-size: 1.1rem;
-            font-weight: 500;
-            opacity: 0.8;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        .tagline {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #ffd700;
+            margin-bottom: 20px;
+            line-height: 1.4;
+            border-left: 4px solid #ffd700;
+            padding-left: 12px;
+            font-style: italic;
+        }
+
+        .text-content.dark-theme .tagline {
+            color: #d87000;
+            border-left-color: #d87000;
         }
 
         /* --- DISTRIBUTOR BENEFITS BOX --- */
@@ -122,9 +183,6 @@
         .distributor-box h3 {
             font-size: 1.1rem;
             margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
 
         .distributor-box ul {
@@ -143,80 +201,109 @@
         }
 
         .distributor-box li::before {
-            content: "\2713"; /* Clean professional checkmark */
+            content: "\2713"; /* Clean Checkmark */
             color: #ffd700;
             font-weight: bold;
+            font-size: 1.1rem;
         }
 
         .text-content.dark-theme .distributor-box {
             background: rgba(0, 0, 0, 0.05);
             border-color: rgba(0, 0, 0, 0.2);
-            color: #333;
         }
 
-        /* --- CONTACT & SOCIAL ACTIONS --- */
-        .contact-actions {
+        /* --- FOOTER & CONTACT ACTIONS --- */
+        .footer-action-area {
             display: flex;
-            align-items: center;
+            flex-direction: column;
             gap: 15px;
-            flex-wrap: wrap; 
-            margin-bottom: 25px; 
+            margin-top: 5px;
         }
 
-        .action-btn {
+        .wa-btn {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
             padding: 14px 25px;
             background: white;
-            color: #333;
+            color: #333 !important;
             text-decoration: none;
             font-weight: bold;
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             border-radius: 30px;
             box-shadow: 0 10px 20px rgba(0,0,0,0.15);
             transition: transform 0.2s, box-shadow 0.2s;
+            width: max-content;
         }
 
-        .action-btn:hover {
+        .wa-btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 15px 25px rgba(0,0,0,0.25);
         }
 
-        .action-btn.icon-only {
-            padding: 14px;
-            border-radius: 50%;
+        .wa-btn svg { width: 22px; height: 22px; fill: currentColor; }
+
+        /* Bottom Row: Address + Socials */
+        .footer-bottom-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-top: 1px solid rgba(255,255,255,0.3);
+            padding-top: 15px;
+            gap: 20px;
         }
 
-        .action-btn svg {
-            width: 20px;
-            height: 20px;
-            fill: currentColor;
-        }
-
-        .text-content.dark-theme .action-btn {
-            background: #333;
-            color: white;
-        }
-
-        /* --- LEGAL / OFFICIAL FOOTER --- */
         .legal-footer {
             font-size: 0.85rem;
             line-height: 1.6;
             opacity: 0.9;
-            border-top: 1px solid rgba(255,255,255,0.3);
-            padding-top: 12px;
         }
 
-        .text-content.dark-theme .legal-footer {
+        .social-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .action-btn.icon-only {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            background: white;
+            color: #333 !important;
+            border-radius: 50%;
+            text-decoration: none;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            transition: transform 0.2s;
+        }
+
+        .action-btn.icon-only:hover { transform: translateY(-3px); }
+        .action-btn.icon-only svg { width: 18px; height: 18px; fill: currentColor; }
+
+        /* Dark Theme overrides for Litchi */
+        .text-content.dark-theme .wa-btn, 
+        .text-content.dark-theme .action-btn.icon-only {
+            background: #333; color: white !important;
+        }
+        .text-content.dark-theme .footer-bottom-row {
             border-top-color: rgba(0,0,0,0.2);
         }
 
-        /* --- PRODUCT DISPLAY --- */
+        /* --- RIGHT SIDE: PRODUCT DISPLAY --- */
+        .right-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            height: 100%;
+        }
+
         .product-display {
             position: relative;
-            width: 600px;
+            width: 100%;
+            max-width: 600px;
             height: 700px;
             display: flex;
             justify-content: center;
@@ -231,7 +318,7 @@
             filter: drop-shadow(0 30px 30px rgba(0,0,0,0.4));
         }
 
-        /* --- FLOATING FRUITS LAYER --- */
+        /* --- FLOATING FRUITS --- */
         #fruit-layer {
             position: absolute;
             top: 0; left: 0;
@@ -241,8 +328,7 @@
 
         .fruit-wrapper {
             position: absolute;
-            top: 50%;
-            left: 50%;
+            top: 50%; left: 50%;
             opacity: 0;
             transform: translate(-50%, -50%) scale(0); 
             transition: all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1); 
@@ -282,8 +368,7 @@
         }
 
         .dot {
-            width: 15px;
-            height: 15px;
+            width: 15px; height: 15px;
             border-radius: 50%;
             border: 2px solid white;
             background: transparent;
@@ -291,10 +376,7 @@
             transition: 0.3s;
         }
 
-        .dot.active {
-            background: white;
-            transform: scale(1.3);
-        }
+        .dot.active { background: white; transform: scale(1.3); }
 
         .text-content.dark-theme ~ .controls .dot { border-color: #333; }
         .text-content.dark-theme ~ .controls .dot.active { background: #333; }
@@ -312,23 +394,22 @@
             background: rgba(255, 255, 255, 0.2);
             border: 2px solid white;
             color: white;
-            width: 50px;
-            height: 50px;
+            width: 50px; height: 50px;
             border-radius: 50%;
             font-size: 1.5rem;
             cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            display: flex; justify-content: center; align-items: center;
             transition: 0.3s;
             backdrop-filter: blur(5px);
         }
 
         .arrow-btn:hover { background: white; color: #333; }
 
+        .text-content.dark-theme ~ .right-content .nav-arrows .arrow-btn,
         .text-content.dark-theme ~ .nav-arrows .arrow-btn {
             border-color: #333; color: #333; background: rgba(0,0,0,0.05);
         }
+        .text-content.dark-theme ~ .right-content .nav-arrows .arrow-btn:hover,
         .text-content.dark-theme ~ .nav-arrows .arrow-btn:hover {
             background: #333; color: white;
         }
@@ -338,53 +419,71 @@
         /* ========================================= */
         @media (max-width: 900px) {
             .slider-container {
+                /* Flips the layout: Bottle on top, Text on bottom */
                 flex-direction: column;
                 justify-content: flex-start;
-                padding: 50px 5% 150px 5%; 
-                height: auto; 
+                padding: 20px 5% 50px 5%; 
             }
 
-            .text-content {
-                text-align: center;
-                align-items: center;
-                margin-top: 10px;
-                margin-bottom: 50px; 
+            .right-content {
+                order: 1; /* Forces bottle to the top */
+                width: 100%;
+                height: 450px; /* Reduced height for mobile */
+                margin-bottom: 20px;
+            }
+
+            .product-display { height: 100%; }
+            .main-bottle { height: 90%; }
+
+            /* Position Arrows strictly beside the bottle on mobile */
+            .nav-arrows {
+                bottom: auto;
+                top: 50%;
+                transform: translateY(-50%);
+                left: 0;
+                width: 100%;
+                justify-content: space-between;
+                padding: 0 5%;
+            }
+
+            /* Adjust fruits for smaller top area */
+            .fruit-1 img { width: 80px; }    
+            .fruit-2 img { width: 70px; }   
+            .fruit-3 img { width: 80px; }   
+            .fruit-4 img { width: 90px; } 
+
+            #fruit-layer.active .fruit-1 { transform: translate(-120px, -140px) scale(1); }
+            #fruit-layer.active .fruit-2 { transform: translate(120px, -160px) scale(1); }
+            #fruit-layer.active .fruit-3 { transform: translate(-110px, 120px) scale(1); }
+            #fruit-layer.active .fruit-4 { transform: translate(120px, 140px) scale(1); }
+
+            /* Text section settings */
+            .left-content {
+                order: 2; /* Forces text below the bottle */
                 max-width: 100%;
                 padding-bottom: 0; 
             }
 
-            .title { 
-                font-size: 2.8rem; 
-                white-space: nowrap; 
-            }
-            .subtitle { font-size: 1.1rem; margin-bottom: 15px; }
-            .price { font-size: 2.2rem; margin-bottom: 25px; }
-
-            .distributor-box { text-align: left; width: 100%; max-width: 400px; margin-bottom: 25px; }
-            .distributor-box li { font-size: 0.95rem; }
+            .title { font-size: 3rem; white-space: normal; }
+            .subtitle { font-size: 1.1rem; }
             
-            .contact-actions { justify-content: center; margin-bottom: 30px; }
+            .product-meta { gap: 10px; margin-bottom: 20px; }
+            .price { font-size: 2rem; }
 
-            .product-display { width: 100%; height: 500px; }
-
-            .fruit-1 img { width: 90px; }    
-            .fruit-2 img { width: 70px; }   
-            .fruit-3 img { width: 80px; }   
-            .fruit-4 img { width: 100px; } 
-
-            #fruit-layer.active .fruit-1 { transform: translate(-120px, -160px) scale(1); }
-            #fruit-layer.active .fruit-2 { transform: translate(120px, -180px) scale(1); }
-            #fruit-layer.active .fruit-3 { transform: translate(-110px, 140px) scale(1); }
-            #fruit-layer.active .fruit-4 { transform: translate(120px, 160px) scale(1); }
-
-            .controls {
-                top: auto; bottom: 30px; right: 50%;
-                transform: translateX(50%); flex-direction: row; 
+            .wa-btn { width: 100%; } /* Full width button on mobile */
+            
+            .footer-bottom-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
             }
+            .legal-footer { text-align: left; }
 
-            .nav-arrows {
-                bottom: 80px; top: auto; left: 5%;
-                width: 90%; justify-content: space-between; padding: 0;
+            /* Move controls under the bottle, before text */
+            .controls {
+                top: 420px; 
+                bottom: auto; right: 50%;
+                transform: translateX(50%); flex-direction: row; 
             }
         }
     </style>
@@ -396,15 +495,28 @@
     <div class="slider-container" id="bg-container">
         <div class="bg-overlay" id="bg-overlay"></div>
 
-        <div class="text-content" id="text-box">
+        <div class="left-content" id="text-box">
+            
             <h1 class="title" id="flavor-title">Green Apple</h1>
             <p class="subtitle" id="flavor-desc">Crisp, refreshing, and perfectly tart.</p>
+
+            <div class="product-meta">
+                <p class="price">₹20 <span>Retail</span></p>
+                <span class="volume-badge">210 ml</span>
+                <div class="veg-symbol"><div class="veg-dot"></div></div>
+            </div>
             
             <div class="nata-wrapper" id="nata-wrapper">
                 <span class="nata-highlight">With Nata de Coco</span>
             </div>
 
-            <p class="price">₹20 <span>Retail Price</span></p>
+            <p class="detailed-desc" id="detailed-desc">
+                <strong>Green Apple</strong> flavoured drink with Nata De Coco pieces is a refreshing healthy alternative to soft drink. Nata De Coco jelly bits from Kerala grown coconuts add a bite to this refreshing flavourful drink.<br><br>
+                Manufactured and distributed by: <strong>CRAVE</strong><br>
+                Fssai Registered Company in Kerala
+            </p>
+
+            <p class="tagline">Maximum Quality, Minimum Rate. Kerala's first premium beverage offering real Nata de Coco at this unbeatable price.</p>
 
             <div class="distributor-box">
                 <h3>Why Partner With Crave?</h3>
@@ -416,76 +528,77 @@
                 </ul>
             </div>
 
-            <div class="contact-actions">
-                <a href="#" id="wa-btn" target="_blank" class="action-btn">
+            <div class="footer-action-area">
+                <a href="#" id="wa-btn" target="_blank" class="action-btn wa-btn">
                     <svg viewBox="0 0 16 16"><path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/></svg>
                     Order on WhatsApp
                 </a>
 
-                <a href="https://www.instagram.com/crave_juiz?utm_source=qr" target="_blank" class="action-btn icon-only" title="Follow us on Instagram">
-                    <svg viewBox="0 0 16 16"><path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.036 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"/></svg>
-                </a>
-
-                <a href="mailto:manager.crave7@gmail.com" class="action-btn icon-only" title="Email Us">
-                    <svg viewBox="0 0 16 16"><path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586zm3.436-.586L16 11.801V4.697z"/></svg>
-                </a>
-            </div>
-
-            <div class="legal-footer">
-                <p><strong>M/S CRAVE JUIZ</strong></p>
-                <p>Pandavath House, Chandiroor Post, Cherthala, Alappuzha Dist, Kerala, PIN-688537</p>
+                <div class="footer-bottom-row">
+                    <div class="legal-footer">
+                        <p><strong>CRAVE</strong></p>
+                        <p>CRAVE building, vaduthala<br>alappuzha 688535</p>
+                    </div>
+                    <div class="social-actions">
+                        <a href="https://www.instagram.com/crave_juiz?utm_source=qr" target="_blank" class="action-btn icon-only" title="Instagram">
+                            <svg viewBox="0 0 16 16"><path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.036 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"/></svg>
+                        </a>
+                        <a href="mailto:manager.crave7@gmail.com" class="action-btn icon-only" title="Email">
+                            <svg viewBox="0 0 16 16"><path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586zm3.436-.586L16 11.801V4.697z"/></svg>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="product-display">
-            <div id="fruit-layer">
-                <div class="fruit-wrapper fruit-1"><img src="greenapple.png" alt="fruit"></div>
-                <div class="fruit-wrapper fruit-2"><img src="greenapple.png" alt="fruit"></div>
-                <div class="fruit-wrapper fruit-3"><img src="greenapple.png" alt="fruit"></div>
-                <div class="fruit-wrapper fruit-4"><img src="greenapple.png" alt="fruit"></div>
+        <div class="right-content">
+            <div class="product-display">
+                <div id="fruit-layer">
+                    <div class="fruit-wrapper fruit-1"><img src="greenapple.png" alt="fruit"></div>
+                    <div class="fruit-wrapper fruit-2"><img src="greenapple.png" alt="fruit"></div>
+                    <div class="fruit-wrapper fruit-3"><img src="greenapple.png" alt="fruit"></div>
+                    <div class="fruit-wrapper fruit-4"><img src="greenapple.png" alt="fruit"></div>
+                </div>
+
+                <img src="cravejuizgreenapple.png" alt="Bottle" class="main-bottle" id="main-bottle" style="transform: translateY(0) rotate(0deg); opacity: 1;">
             </div>
 
-            <img src="cravejuizgreenapple.png" alt="Bottle" class="main-bottle" id="main-bottle" style="transform: translateY(0) rotate(0deg); opacity: 1;">
+            <div class="nav-arrows">
+                <button class="arrow-btn" onclick="prevFlavor()">&#8592;</button>
+                <button class="arrow-btn" onclick="nextFlavor()">&#8594;</button>
+            </div>
         </div>
 
         <div class="controls" id="dots-container"></div>
-
-        <div class="nav-arrows">
-            <button class="arrow-btn" onclick="prevFlavor()">&#8592;</button>
-            <button class="arrow-btn" onclick="nextFlavor()">&#8594;</button>
-        </div>
 
     </div>
 
     <script>
         const phoneNumber = "918157802440";
 
+        // Removed hasNata toggle, as you requested Nata for ALL drinks.
         const flavors = [
             {
                 name: "Green Apple",
                 desc: "Crisp, refreshing, and perfectly tart.",
-                hasNata: false, 
                 color1: "#85e027", color2: "#5a9e16",
                 bottle: "cravejuizgreenapple.png", fruit: "greenapple.png"
             },
             {
                 name: "Mango",
                 desc: "Rich, tropical sweetness in every sip.",
-                hasNata: true, 
                 color1: "#ffc107", color2: "#ff9800",
                 bottle: "cravejuizmango.png", fruit: "mango.png"
             },
             {
                 name: "Guava",
                 desc: "Exotic, vibrant, and packed with flavor.",
-                hasNata: false,
                 color1: "#f48fb1", color2: "#d81b60",
                 bottle: "cravejuizguava.png", fruit: "guava.png"
             },
             {
                 name: "Litchi",
                 desc: "Delicately sweet and beautifully floral.",
-                hasNata: false,
                 color1: "#ffffff", color2: "#cfd8dc",
                 bottle: "cravejuizlitchi.png", fruit: "litchi.png"
             }
@@ -506,7 +619,7 @@
         const bgOverlay = document.getElementById('bg-overlay');
         const titleEl = document.getElementById('flavor-title');
         const descEl = document.getElementById('flavor-desc');
-        const nataWrapper = document.getElementById('nata-wrapper');
+        const detailedDescEl = document.getElementById('detailed-desc');
         const waBtn = document.getElementById('wa-btn');
         const bottleEl = document.getElementById('main-bottle');
         const fruitLayer = document.getElementById('fruit-layer');
@@ -520,16 +633,6 @@
 
         window.onload = () => {
             updateWhatsAppLink(flavors[0].name);
-            
-            // Set initial state for the Nata badge
-            if (flavors[0].hasNata) {
-                nataWrapper.style.display = "block";
-                descEl.style.marginBottom = "5px"; // tighten gap
-            } else {
-                nataWrapper.style.display = "none";
-                descEl.style.marginBottom = "15px"; // normal gap
-            }
-
             setTimeout(() => { fruitLayer.classList.add('active'); }, 100);
         };
 
@@ -557,11 +660,11 @@
             bgOverlay.style.opacity = 1;
 
             if (data.name === "Litchi") {
-                textBox.style.color = "#333";
                 textBox.classList.add("dark-theme");
+                textBox.style.color = "#333";
             } else {
-                textBox.style.color = "white";
                 textBox.classList.remove("dark-theme");
+                textBox.style.color = "white";
             }
 
             fruitLayer.classList.remove('active');
@@ -578,18 +681,12 @@
             dots[currentIndex].classList.add('active');
 
             setTimeout(() => {
-                // Update Text Content
+                // Update short text
                 titleEl.textContent = data.name;
                 descEl.textContent = data.desc;
                 
-                // Show or Hide Nata Tag smoothly handling layout gaps
-                if (data.hasNata) {
-                    nataWrapper.style.display = "block";
-                    descEl.style.marginBottom = "5px"; 
-                } else {
-                    nataWrapper.style.display = "none";
-                    descEl.style.marginBottom = "15px"; 
-                }
+                // Update dynamic paragraph
+                detailedDescEl.innerHTML = `<strong>${data.name}</strong> flavoured drink with Nata De Coco pieces is a refreshing healthy alternative to soft drink. Nata De Coco jelly bits from Kerala grown coconuts add a bite to this refreshing flavourful drink.<br><br>Manufactured and distributed by: <strong>CRAVE</strong><br>Fssai Registered Company in Kerala`;
 
                 updateWhatsAppLink(data.name);
                 
