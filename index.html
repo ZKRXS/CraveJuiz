@@ -12,16 +12,13 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        /* --- THE ANDROID & IOS COMPATIBLE FIX --- */
         html, body {
             width: 100%;
-            /* Removed overscroll-behavior and touch-action from here */
             background-color: #5a9e16; 
             transition: background-color 0.8s ease-in-out;
         }
 
         body {
-            /* Keep vertical scrolling natural for Android */
             overflow-y: auto; 
             overflow-x: hidden;
         }
@@ -30,7 +27,6 @@
         .slider-container {
             width: 100%;
             max-width: 100vw;
-            /* This clips the floating fruits so iOS doesn't drift left/right */
             overflow-x: hidden; 
             min-height: 100vh;
             display: flex;
@@ -246,22 +242,33 @@
         /* ========================================= */
         @media (max-width: 900px) {
             .slider-container { flex-direction: column; justify-content: flex-start; padding: 20px 5% 50px 5%; }
-            .right-content { order: 1; width: 100%; height: 400px; margin-bottom: 20px; }
+            
+            .right-content { order: 1; width: 100%; height: 420px; margin-bottom: 10px; }
             .main-bottle { height: 90%; max-height: 360px; }
 
             .nav-arrows { bottom: auto; top: 50%; transform: translateY(-50%); left: 0; width: 100%; justify-content: space-between; padding: 0 5%; }
 
+            /* SHIFTED FRUITS MORE TO THE LEFT */
             .fruit-1 img { width: 80px; } .fruit-2 img { width: 70px; } .fruit-3 img { width: 80px; } .fruit-4 img { width: 90px; } 
-            #fruit-layer.active .fruit-1 { transform: translate(-100px, -130px) scale(1); }
-            #fruit-layer.active .fruit-2 { transform: translate(100px, -150px) scale(1); }
-            #fruit-layer.active .fruit-3 { transform: translate(-100px, 120px) scale(1); }
-            #fruit-layer.active .fruit-4 { transform: translate(110px, 130px) scale(1); }
+            #fruit-layer.active .fruit-1 { transform: translate(-130px, -130px) scale(1); }
+            #fruit-layer.active .fruit-2 { transform: translate(60px, -160px) scale(1); }
+            #fruit-layer.active .fruit-3 { transform: translate(-130px, 120px) scale(1); }
+            #fruit-layer.active .fruit-4 { transform: translate(70px, 140px) scale(1); }
 
-            .left-content { order: 2; max-width: 100%; padding-bottom: 0; }
+            /* DOTS (PAGINATION) SAFELY IN BETWEEN BOTTLE AND TEXT */
+            .controls { 
+                position: relative; /* Removes absolute positioning */
+                top: auto; right: auto; transform: none; 
+                flex-direction: row; justify-content: center; 
+                width: 100%; margin-bottom: 30px; 
+                order: 2; /* Forces it to naturally stack below the bottle */
+            }
+
+            .left-content { order: 3; max-width: 100%; padding-bottom: 0; } /* Text forced below the dots */
+            
             .title { font-size: 3rem; white-space: normal; }
             .wa-btn { width: 100%; } 
             .footer-bottom-row { flex-direction: column; align-items: flex-start; gap: 15px; }
-            .controls { top: 380px; bottom: auto; right: 50%; transform: translateX(50%); flex-direction: row; }
         }
     </style>
 </head>
