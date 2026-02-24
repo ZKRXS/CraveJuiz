@@ -281,7 +281,6 @@
         .action-btn.icon-only:hover { transform: translateY(-3px); }
         .action-btn.icon-only svg { width: 18px; height: 18px; fill: currentColor; }
 
-        /* Dark Theme overrides for Litchi */
         .text-content.dark-theme .wa-btn, 
         .text-content.dark-theme .action-btn.icon-only {
             background: #333; color: white !important;
@@ -311,7 +310,6 @@
             z-index: 5;
         }
 
-        /* ANDROID FIX: Absolute constraint boundaries added */
         .main-bottle {
             height: 95%;
             max-height: 100%;
@@ -431,18 +429,15 @@
             .right-content {
                 order: 1; 
                 width: 100%;
-                height: 400px; /* Locked explicit height so Android can't blow it out */
+                height: 450px; 
                 margin-bottom: 20px;
             }
 
             .product-display { height: 100%; width: 100%; }
             
-            /* ANDROID FIX: Enforce absolute maximums for the bottle size */
             .main-bottle { 
                 height: 90%; 
                 max-height: 380px; 
-                width: auto;
-                max-width: 100%; /* Keeps it inside screen width */
             }
 
             .nav-arrows {
@@ -455,16 +450,15 @@
                 padding: 0 5%;
             }
 
-            /* Adjust fruits closer to the bottle */
             .fruit-1 img { width: 80px; }    
             .fruit-2 img { width: 70px; }   
             .fruit-3 img { width: 80px; }   
             .fruit-4 img { width: 90px; } 
 
-            #fruit-layer.active .fruit-1 { transform: translate(-100px, -130px) scale(1); }
-            #fruit-layer.active .fruit-2 { transform: translate(100px, -150px) scale(1); }
-            #fruit-layer.active .fruit-3 { transform: translate(-100px, 120px) scale(1); }
-            #fruit-layer.active .fruit-4 { transform: translate(110px, 130px) scale(1); }
+            #fruit-layer.active .fruit-1 { transform: translate(-120px, -140px) scale(1); }
+            #fruit-layer.active .fruit-2 { transform: translate(120px, -160px) scale(1); }
+            #fruit-layer.active .fruit-3 { transform: translate(-110px, 120px) scale(1); }
+            #fruit-layer.active .fruit-4 { transform: translate(120px, 140px) scale(1); }
 
             .left-content {
                 order: 2; 
@@ -487,9 +481,8 @@
             }
             .legal-footer { text-align: left; }
 
-            /* Dots positioning */
             .controls {
-                top: 380px; 
+                top: 420px; 
                 bottom: auto; right: 50%;
                 transform: translateX(50%); flex-direction: row; 
             }
@@ -587,21 +580,25 @@
         const flavors = [
             {
                 name: "Green Apple",
+                desc: "Crisp, refreshing, and perfectly tart.",
                 color1: "#85e027", color2: "#5a9e16",
                 bottle: "cravejuizgreenapple.png", fruit: "greenapple.png"
             },
             {
                 name: "Mango",
+                desc: "Rich, tropical sweetness in every sip.",
                 color1: "#ffc107", color2: "#ff9800",
                 bottle: "cravejuizmango.png", fruit: "mango.png"
             },
             {
                 name: "Guava",
+                desc: "Exotic, vibrant, and packed with flavor.",
                 color1: "#f48fb1", color2: "#d81b60",
                 bottle: "cravejuizguava.png", fruit: "guava.png"
             },
             {
                 name: "Litchi",
+                desc: "Delicately sweet and beautifully floral.",
                 color1: "#ffffff", color2: "#cfd8dc",
                 bottle: "cravejuizlitchi.png", fruit: "litchi.png"
             }
@@ -621,6 +618,7 @@
         const bgContainer = document.getElementById('bg-container');
         const bgOverlay = document.getElementById('bg-overlay');
         const titleEl = document.getElementById('flavor-title');
+        const descEl = document.getElementById('flavor-desc');
         const detailedDescEl = document.getElementById('detailed-desc');
         const waBtn = document.getElementById('wa-btn');
         const bottleEl = document.getElementById('main-bottle');
@@ -683,15 +681,13 @@
             dots[currentIndex].classList.add('active');
 
             setTimeout(() => {
-                // Update short text
                 titleEl.textContent = data.name;
+                descEl.textContent = data.desc;
                 
-                // Update dynamic paragraph
                 detailedDescEl.innerHTML = `<strong>${data.name}</strong> flavoured drink with Nata De Coco pieces is a refreshing healthy alternative to soft drink. Nata De Coco jelly bits from Kerala grown coconuts add a bite to this refreshing flavourful drink.<br><br>Manufactured and distributed by: <strong>CRAVE</strong><br>Fssai Registered Company in Kerala`;
 
                 updateWhatsAppLink(data.name);
                 
-                // Swap Images
                 bottleEl.src = data.bottle;
                 const fruits = fruitLayer.querySelectorAll('img');
                 fruits.forEach(img => { img.src = data.fruit; });
@@ -703,7 +699,6 @@
 
                 void bottleEl.offsetWidth;
 
-                // Animate In
                 bottleEl.style.transition = "all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)";
                 bottleEl.style.transform = "translateY(0) rotate(0deg)";
                 bottleEl.style.opacity = 1;
@@ -736,6 +731,44 @@
             let prevIndex = currentIndex - 1;
             if (prevIndex < 0) prevIndex = flavors.length - 1; 
             changeFlavor(prevIndex);
+        }
+
+        // --- SWIPE GESTURE SUPPORT FOR MOBILE ---
+        let touchStartX = 0;
+        let touchEndX = 0;
+        let touchStartY = 0;
+        let touchEndY = 0;
+
+        const slider = document.getElementById('bg-container');
+
+        slider.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+            touchStartY = e.changedTouches[0].screenY;
+        }, {passive: true});
+
+        slider.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            touchEndY = e.changedTouches[0].screenY;
+            handleSwipe();
+        }, {passive: true});
+
+        function handleSwipe() {
+            const deltaX = touchEndX - touchStartX;
+            const deltaY = touchEndY - touchStartY;
+            
+            // Minimum swipe distance threshold
+            const minSwipeDistance = 50;
+
+            // Check if horizontal swipe is more significant than vertical scroll
+            if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > minSwipeDistance) {
+                if (deltaX < 0) {
+                    // Swiped Left -> Next Flavor
+                    nextFlavor();
+                } else {
+                    // Swiped Right -> Previous Flavor
+                    prevFlavor();
+                }
+            }
         }
     </script>
 </body>
