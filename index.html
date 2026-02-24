@@ -12,25 +12,26 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        /* --- IOS HORIZONTAL DRIFT FIXES --- */
+        /* --- THE ANDROID & IOS COMPATIBLE FIX --- */
         html, body {
+            width: 100%;
+            /* Removed overscroll-behavior and touch-action from here */
             background-color: #5a9e16; 
             transition: background-color 0.8s ease-in-out;
-            max-width: 100vw; /* Strict boundary */
-            overflow-x: hidden;
         }
 
         body {
-            overflow-y: auto;
-            overscroll-behavior: none; 
-            touch-action: pan-y; /* MAGIC FIX: Completely disables horizontal dragging on mobile */
+            /* Keep vertical scrolling natural for Android */
+            overflow-y: auto; 
+            overflow-x: hidden;
         }
 
         /* --- MAIN CONTAINER --- */
         .slider-container {
-            width: 100%; /* Changed from 100vw to prevent scrollbar overflow issues */
+            width: 100%;
             max-width: 100vw;
-            overflow-x: hidden; /* Clips elements flying off-screen so they don't stretch the page */
+            /* This clips the floating fruits so iOS doesn't drift left/right */
+            overflow-x: hidden; 
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -66,7 +67,7 @@
             font-size: 3.8rem;
             font-weight: 900;
             line-height: 1;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
             text-transform: capitalize;
             letter-spacing: -1px;
         }
@@ -78,7 +79,7 @@
             opacity: 0.95;
         }
 
-        /* --- PRODUCT META (Price, Volume, Veg Symbol) --- */
+        /* --- PRODUCT META --- */
         .product-meta {
             display: flex;
             align-items: center;
@@ -112,38 +113,26 @@
             backdrop-filter: blur(5px);
         }
 
-        .text-content.dark-theme .volume-badge {
-            background: rgba(0, 0, 0, 0.1);
-        }
+        .text-content.dark-theme .volume-badge { background: rgba(0, 0, 0, 0.1); }
 
         .veg-symbol {
-            width: 24px;
-            height: 24px;
+            width: 24px; height: 24px;
             background: white;
             border: 2px solid #008000;
             border-radius: 4px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            display: flex; justify-content: center; align-items: center;
         }
 
-        .veg-dot {
-            width: 10px;
-            height: 10px;
-            background: #008000;
-            border-radius: 50%;
-        }
+        .veg-dot { width: 10px; height: 10px; background: #008000; border-radius: 50%; }
 
-        /* --- NATA DE COCO HIGHLIGHT --- */
-        .nata-wrapper {
-            margin-bottom: 15px;
-        }
+        /* --- NATA DE COCO --- */
+        .nata-wrapper { margin-bottom: 15px; }
 
         .nata-highlight {
             display: inline-block;
             background: linear-gradient(45deg, #ffd700, #ff8c00);
             color: #000;
-            padding: 4px 12px;
+            padding: 4px 14px;
             border-radius: 20px;
             font-size: 1rem;
             font-weight: bold;
@@ -151,31 +140,17 @@
             transform: rotate(-2deg);
         }
 
-        /* --- DETAILED DESCRIPTION & TAGLINE --- */
-        .detailed-desc {
-            font-size: 0.95rem;
-            line-height: 1.5;
-            margin-bottom: 15px;
-            opacity: 0.9;
-        }
+        .detailed-desc { font-size: 0.95rem; line-height: 1.5; margin-bottom: 15px; opacity: 0.9; }
 
         .tagline {
-            font-size: 1rem;
-            font-weight: 600;
-            color: #ffd700;
-            margin-bottom: 20px;
-            line-height: 1.4;
-            border-left: 4px solid #ffd700;
-            padding-left: 12px;
-            font-style: italic;
+            font-size: 1rem; font-weight: 600; color: #ffd700;
+            margin-bottom: 20px; line-height: 1.4;
+            border-left: 4px solid #ffd700; padding-left: 12px; font-style: italic;
         }
 
-        .text-content.dark-theme .tagline {
-            color: #d87000;
-            border-left-color: #d87000;
-        }
+        .text-content.dark-theme .tagline { color: #d87000; border-left-color: #d87000; }
 
-        /* --- DISTRIBUTOR BENEFITS BOX --- */
+        /* --- BENEFITS BOX --- */
         .distributor-box {
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.3);
@@ -185,159 +160,64 @@
             backdrop-filter: blur(10px);
         }
 
-        .distributor-box h3 {
-            font-size: 1.1rem;
-            margin-bottom: 10px;
-        }
+        .distributor-box h3 { font-size: 1.1rem; margin-bottom: 10px; }
+        .distributor-box ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+        .distributor-box li { font-size: 0.95rem; font-weight: 500; display: flex; align-items: center; gap: 8px; }
+        .distributor-box li::before { content: "\2713"; color: #ffd700; font-weight: bold; }
 
-        .distributor-box ul {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .distributor-box li {
-            font-size: 0.95rem;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .distributor-box li::before {
-            content: "\2713"; 
-            color: #ffd700;
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
-
-        .text-content.dark-theme .distributor-box {
-            background: rgba(0, 0, 0, 0.05);
-            border-color: rgba(0, 0, 0, 0.2);
-        }
-
-        /* --- FOOTER & CONTACT ACTIONS --- */
-        .footer-action-area {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-top: 5px;
-        }
+        /* --- FOOTER ACTIONS --- */
+        .footer-action-area { display: flex; flex-direction: column; gap: 15px; margin-top: 5px; }
 
         .wa-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            padding: 14px 25px;
-            background: white;
-            color: #333 !important;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1.1rem;
-            border-radius: 30px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-            transition: transform 0.2s, box-shadow 0.2s;
-            width: max-content;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            padding: 14px 25px; background: white; color: #333 !important;
+            text-decoration: none; font-weight: bold; font-size: 1.1rem;
+            border-radius: 30px; box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            transition: transform 0.2s, box-shadow 0.2s; width: max-content;
         }
 
-        .wa-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 25px rgba(0,0,0,0.25);
-        }
-
+        .wa-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(0,0,0,0.25); }
         .wa-btn svg { width: 22px; height: 22px; fill: currentColor; }
 
-        /* Bottom Row: Address + Socials */
         .footer-bottom-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            border-top: 1px solid rgba(255,255,255,0.3);
-            padding-top: 15px;
-            gap: 20px;
+            display: flex; justify-content: space-between; align-items: flex-end;
+            border-top: 1px solid rgba(255,255,255,0.3); padding-top: 15px; gap: 20px;
         }
 
-        .legal-footer {
-            font-size: 0.85rem;
-            line-height: 1.6;
-            opacity: 0.9;
-        }
-
-        .social-actions {
-            display: flex;
-            gap: 12px;
-        }
+        .legal-footer { font-size: 0.85rem; line-height: 1.6; opacity: 0.9; }
+        .social-actions { display: flex; gap: 12px; }
 
         .action-btn.icon-only {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 12px;
-            background: white;
-            color: #333 !important;
-            border-radius: 50%;
-            text-decoration: none;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-            transition: transform 0.2s;
+            display: flex; align-items: center; justify-content: center;
+            padding: 12px; background: white; color: #333 !important;
+            border-radius: 50%; text-decoration: none;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15); transition: transform 0.2s;
         }
 
-        .action-btn.icon-only:hover { transform: translateY(-3px); }
         .action-btn.icon-only svg { width: 18px; height: 18px; fill: currentColor; }
 
-        /* Dark Theme overrides for Litchi */
         .text-content.dark-theme .wa-btn, 
-        .text-content.dark-theme .action-btn.icon-only {
-            background: #333; color: white !important;
-        }
-        .text-content.dark-theme .footer-bottom-row {
-            border-top-color: rgba(0,0,0,0.2);
-        }
+        .text-content.dark-theme .action-btn.icon-only { background: #333; color: white !important; }
 
-        /* --- RIGHT SIDE: PRODUCT DISPLAY --- */
+        /* --- PRODUCT DISPLAY (RIGHT) --- */
         .right-content {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            height: 100%;
+            flex: 1; display: flex; justify-content: center; align-items: center;
+            position: relative; height: 100%;
         }
 
         .product-display {
-            position: relative;
-            width: 100%;
-            max-width: 600px;
-            height: 700px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 5;
+            position: relative; width: 100%; max-width: 600px;
+            height: 700px; display: flex; justify-content: center; align-items: center; z-index: 5;
         }
 
         .main-bottle {
-            height: 95%;
-            max-height: 100%;
-            width: auto;
-            max-width: 100%;
-            object-fit: contain;
-            z-index: 10; 
-            filter: drop-shadow(0 30px 30px rgba(0,0,0,0.4));
+            height: 95%; max-height: 100%; width: auto; max-width: 100%;
+            object-fit: contain; z-index: 10; filter: drop-shadow(0 30px 30px rgba(0,0,0,0.4));
         }
 
-        /* --- FLOATING FRUITS --- */
-        #fruit-layer {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: 5;
-        }
-
+        /* --- FRUITS --- */
         .fruit-wrapper {
-            position: absolute;
-            top: 50%; left: 50%;
-            opacity: 0;
+            position: absolute; top: 50%; left: 50%; opacity: 0;
             transform: translate(-50%, -50%) scale(0); 
             transition: all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1); 
         }
@@ -347,151 +227,41 @@
         #fruit-layer.active .fruit-3 { transform: translate(-240px, 180px) scale(1); opacity: 1; }
         #fruit-layer.active .fruit-4 { transform: translate(220px, 210px) scale(1); opacity: 1; }
 
-        .fruit-wrapper img {
-            object-fit: contain;
-            filter: drop-shadow(0 15px 15px rgba(0,0,0,0.3));
-            animation: float 4s infinite ease-in-out alternate;
-        }
+        .fruit-wrapper img { object-fit: contain; filter: drop-shadow(0 15px 15px rgba(0,0,0,0.3)); animation: float 4s infinite ease-in-out alternate; }
+        .fruit-1 img { width: 140px; } .fruit-2 img { width: 100px; } .fruit-3 img { width: 120px; } .fruit-4 img { width: 150px; } 
 
-        .fruit-1 img { width: 140px; animation-delay: 0s; }    
-        .fruit-2 img { width: 100px; animation-delay: -1s; }   
-        .fruit-3 img { width: 120px; animation-delay: -2s; }   
-        .fruit-4 img { width: 150px; animation-delay: -1.5s; } 
+        @keyframes float { 0% { transform: translateY(0px) rotate(0deg); } 100% { transform: translateY(-30px) rotate(15deg); } }
 
-        @keyframes float {
-            0% { transform: translateY(0px) rotate(0deg); }
-            100% { transform: translateY(-30px) rotate(15deg); }
-        }
-
-        /* --- CONTROLS --- */
-        .controls {
-            position: absolute;
-            right: 5%;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            z-index: 20;
-        }
-
-        .dot {
-            width: 15px; height: 15px;
-            border-radius: 50%;
-            border: 2px solid white;
-            background: transparent;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
+        /* --- NAVIGATION --- */
+        .controls { position: absolute; right: 5%; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 15px; z-index: 20; }
+        .dot { width: 15px; height: 15px; border-radius: 50%; border: 2px solid white; background: transparent; cursor: pointer; transition: 0.3s; }
         .dot.active { background: white; transform: scale(1.3); }
 
-        .text-content.dark-theme ~ .controls .dot { border-color: #333; }
-        .text-content.dark-theme ~ .controls .dot.active { background: #333; }
-
-        .nav-arrows {
-            position: absolute;
-            bottom: 40px; 
-            left: 8%;
-            display: flex;
-            gap: 20px;
-            z-index: 20;
-        }
-
-        .arrow-btn {
-            background: rgba(255, 255, 255, 0.2);
-            border: 2px solid white;
-            color: white;
-            width: 50px; height: 50px;
-            border-radius: 50%;
-            font-size: 1.5rem;
-            cursor: pointer;
-            display: flex; justify-content: center; align-items: center;
-            transition: 0.3s;
-            backdrop-filter: blur(5px);
-        }
-
+        .nav-arrows { position: absolute; bottom: 40px; left: 8%; display: flex; gap: 20px; z-index: 20; }
+        .arrow-btn { background: rgba(255, 255, 255, 0.2); border: 2px solid white; color: white; width: 50px; height: 50px; border-radius: 50%; font-size: 1.5rem; cursor: pointer; display: flex; justify-content: center; align-items: center; transition: 0.3s; backdrop-filter: blur(5px); }
         .arrow-btn:hover { background: white; color: #333; }
 
-        .text-content.dark-theme ~ .right-content .nav-arrows .arrow-btn,
-        .text-content.dark-theme ~ .nav-arrows .arrow-btn {
-            border-color: #333; color: #333; background: rgba(0,0,0,0.05);
-        }
-        .text-content.dark-theme ~ .right-content .nav-arrows .arrow-btn:hover,
-        .text-content.dark-theme ~ .nav-arrows .arrow-btn:hover {
-            background: #333; color: white;
-        }
-
         /* ========================================= */
-        /* --- MOBILE RESPONSIVE MEDIA QUERIES --- */
+        /* --- MOBILE RESPONSIVE --- */
         /* ========================================= */
         @media (max-width: 900px) {
-            .slider-container {
-                flex-direction: column;
-                justify-content: flex-start;
-                padding: 20px 5% 50px 5%; 
-            }
+            .slider-container { flex-direction: column; justify-content: flex-start; padding: 20px 5% 50px 5%; }
+            .right-content { order: 1; width: 100%; height: 400px; margin-bottom: 20px; }
+            .main-bottle { height: 90%; max-height: 360px; }
 
-            .right-content {
-                order: 1; 
-                width: 100%;
-                height: 450px; 
-                margin-bottom: 20px;
-            }
+            .nav-arrows { bottom: auto; top: 50%; transform: translateY(-50%); left: 0; width: 100%; justify-content: space-between; padding: 0 5%; }
 
-            .product-display { height: 100%; width: 100%; }
-            
-            .main-bottle { 
-                height: 90%; 
-                max-height: 380px; 
-            }
+            .fruit-1 img { width: 80px; } .fruit-2 img { width: 70px; } .fruit-3 img { width: 80px; } .fruit-4 img { width: 90px; } 
+            #fruit-layer.active .fruit-1 { transform: translate(-100px, -130px) scale(1); }
+            #fruit-layer.active .fruit-2 { transform: translate(100px, -150px) scale(1); }
+            #fruit-layer.active .fruit-3 { transform: translate(-100px, 120px) scale(1); }
+            #fruit-layer.active .fruit-4 { transform: translate(110px, 130px) scale(1); }
 
-            .nav-arrows {
-                bottom: auto;
-                top: 50%;
-                transform: translateY(-50%);
-                left: 0;
-                width: 100%;
-                justify-content: space-between;
-                padding: 0 5%;
-            }
-
-            .fruit-1 img { width: 80px; }    
-            .fruit-2 img { width: 70px; }   
-            .fruit-3 img { width: 80px; }   
-            .fruit-4 img { width: 90px; } 
-
-            #fruit-layer.active .fruit-1 { transform: translate(-120px, -140px) scale(1); }
-            #fruit-layer.active .fruit-2 { transform: translate(120px, -160px) scale(1); }
-            #fruit-layer.active .fruit-3 { transform: translate(-110px, 120px) scale(1); }
-            #fruit-layer.active .fruit-4 { transform: translate(120px, 140px) scale(1); }
-
-            .left-content {
-                order: 2; 
-                max-width: 100%;
-                padding-bottom: 0; 
-            }
-
+            .left-content { order: 2; max-width: 100%; padding-bottom: 0; }
             .title { font-size: 3rem; white-space: normal; }
-            .subtitle { font-size: 1.1rem; }
-            
-            .product-meta { gap: 10px; margin-bottom: 20px; }
-            .price { font-size: 2rem; }
-
             .wa-btn { width: 100%; } 
-            
-            .footer-bottom-row {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 15px;
-            }
-            .legal-footer { text-align: left; }
-
-            .controls {
-                top: 420px; 
-                bottom: auto; right: 50%;
-                transform: translateX(50%); flex-direction: row; 
-            }
+            .footer-bottom-row { flex-direction: column; align-items: flex-start; gap: 15px; }
+            .controls { top: 380px; bottom: auto; right: 50%; transform: translateX(50%); flex-direction: row; }
         }
     </style>
 </head>
@@ -503,7 +273,6 @@
         <div class="bg-overlay" id="bg-overlay"></div>
 
         <div class="left-content" id="text-box">
-            
             <h1 class="title" id="flavor-title">Green Apple</h1>
             <p class="subtitle" id="flavor-desc">Crisp, refreshing, and perfectly tart.</p>
 
@@ -536,11 +305,10 @@
             </div>
 
             <div class="footer-action-area">
-                <a href="#" id="wa-btn" target="_blank" class="action-btn wa-btn">
+                <a href="#" id="wa-btn" target="_blank" class="wa-btn">
                     <svg viewBox="0 0 16 16"><path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/></svg>
                     Order on WhatsApp
                 </a>
-
                 <div class="footer-bottom-row">
                     <div class="legal-footer">
                         <p><strong>CRAVE</strong></p>
@@ -566,10 +334,8 @@
                     <div class="fruit-wrapper fruit-3"><img src="greenapple.png" alt="fruit"></div>
                     <div class="fruit-wrapper fruit-4"><img src="greenapple.png" alt="fruit"></div>
                 </div>
-
                 <img src="cravejuizgreenapple.png" alt="Bottle" class="main-bottle" id="main-bottle" style="transform: translateY(0) rotate(0deg); opacity: 1;">
             </div>
-
             <div class="nav-arrows">
                 <button class="arrow-btn" onclick="prevFlavor()">&#8592;</button>
                 <button class="arrow-btn" onclick="nextFlavor()">&#8594;</button>
@@ -577,37 +343,18 @@
         </div>
 
         <div class="controls" id="dots-container"></div>
-
     </div>
 
     <script>
         const phoneNumber = "918157802440";
-
         const flavors = [
-            {
-                name: "Green Apple",
-                color1: "#85e027", color2: "#5a9e16",
-                bottle: "cravejuizgreenapple.png", fruit: "greenapple.png"
-            },
-            {
-                name: "Mango",
-                color1: "#ffc107", color2: "#ff9800",
-                bottle: "cravejuizmango.png", fruit: "mango.png"
-            },
-            {
-                name: "Guava",
-                color1: "#f48fb1", color2: "#d81b60",
-                bottle: "cravejuizguava.png", fruit: "guava.png"
-            },
-            {
-                name: "Litchi",
-                color1: "#ffffff", color2: "#cfd8dc",
-                bottle: "cravejuizlitchi.png", fruit: "litchi.png"
-            }
+            { name: "Green Apple", color1: "#85e027", color2: "#5a9e16", bottle: "cravejuizgreenapple.png", fruit: "greenapple.png" },
+            { name: "Mango", color1: "#ffc107", color2: "#ff9800", bottle: "cravejuizmango.png", fruit: "mango.png" },
+            { name: "Guava", color1: "#f48fb1", color2: "#d81b60", bottle: "cravejuizguava.png", fruit: "guava.png" },
+            { name: "Litchi", color1: "#ffffff", color2: "#cfd8dc", bottle: "cravejuizlitchi.png", fruit: "litchi.png" }
         ];
 
         let currentIndex = 0;
-
         function forcePreloadImages() {
             const container = document.getElementById('hard-preload-container');
             flavors.forEach(flavor => {
@@ -655,8 +402,6 @@
             const data = flavors[index];
 
             document.body.style.backgroundColor = data.color2;
-            document.documentElement.style.backgroundColor = data.color2;
-
             bgOverlay.style.background = `radial-gradient(circle, ${data.color1} 0%, ${data.color2} 100%)`;
             bgOverlay.style.opacity = 1;
 
@@ -669,7 +414,6 @@
             }
 
             fruitLayer.classList.remove('active');
-
             bottleEl.style.transition = "all 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53)";
             bottleEl.style.transform = "translateY(120%) rotate(-20deg)";
             bottleEl.style.opacity = 0;
@@ -682,14 +426,9 @@
             dots[currentIndex].classList.add('active');
 
             setTimeout(() => {
-                // Update text
                 titleEl.textContent = data.name;
-                
                 detailedDescEl.innerHTML = `<strong>${data.name}</strong> flavoured drink with Nata De Coco pieces is a refreshing healthy alternative to soft drink. Nata De Coco jelly bits from Kerala grown coconuts add a bite to this refreshing flavourful drink.<br><br>Manufactured and distributed by: <strong>CRAVE</strong><br>Fssai Registered Company in Kerala`;
-
                 updateWhatsAppLink(data.name);
-                
-                // Swap Images
                 bottleEl.src = data.bottle;
                 const fruits = fruitLayer.querySelectorAll('img');
                 fruits.forEach(img => { img.src = data.fruit; });
@@ -701,7 +440,6 @@
 
                 void bottleEl.offsetWidth;
 
-                // Animate In
                 bottleEl.style.transition = "all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)";
                 bottleEl.style.transform = "translateY(0) rotate(0deg)";
                 bottleEl.style.opacity = 1;
@@ -709,9 +447,7 @@
                 textBox.style.transition = "all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)";
                 textBox.style.transform = window.innerWidth <= 900 ? "translateX(0)" : "translateY(0)";
                 textBox.style.opacity = 1;
-
                 fruitLayer.classList.add('active');
-
             }, 500); 
 
             setTimeout(() => {
@@ -724,49 +460,18 @@
             }, 800); 
         }
 
-        function nextFlavor() {
-            let nextIndex = currentIndex + 1;
-            if (nextIndex >= flavors.length) nextIndex = 0; 
-            changeFlavor(nextIndex);
-        }
+        function nextFlavor() { let nextIndex = currentIndex + 1; if (nextIndex >= flavors.length) nextIndex = 0; changeFlavor(nextIndex); }
+        function prevFlavor() { let prevIndex = currentIndex - 1; if (prevIndex < 0) prevIndex = flavors.length - 1; changeFlavor(prevIndex); }
 
-        function prevFlavor() {
-            let prevIndex = currentIndex - 1;
-            if (prevIndex < 0) prevIndex = flavors.length - 1; 
-            changeFlavor(prevIndex);
-        }
-
-        // --- SWIPE GESTURE SUPPORT ---
-        let touchStartX = 0;
-        let touchEndX = 0;
-        let touchStartY = 0;
-        let touchEndY = 0;
-
+        let touchStartX = 0; let touchEndX = 0; let touchStartY = 0; let touchEndY = 0;
         const slider = document.getElementById('bg-container');
-
-        slider.addEventListener('touchstart', e => {
-            touchStartX = e.changedTouches[0].screenX;
-            touchStartY = e.changedTouches[0].screenY;
-        }, {passive: true});
-
-        slider.addEventListener('touchend', e => {
-            touchEndX = e.changedTouches[0].screenX;
-            touchEndY = e.changedTouches[0].screenY;
-            handleSwipe();
-        }, {passive: true});
-
+        slider.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; touchStartY = e.changedTouches[0].screenY; }, {passive: true});
+        slider.addEventListener('touchend', e => { touchEndX = e.changedTouches[0].screenX; touchEndY = e.changedTouches[0].screenY; handleSwipe(); }, {passive: true});
         function handleSwipe() {
             const deltaX = touchEndX - touchStartX;
             const deltaY = touchEndY - touchStartY;
-            
-            const minSwipeDistance = 50;
-
-            if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > minSwipeDistance) {
-                if (deltaX < 0) {
-                    nextFlavor();
-                } else {
-                    prevFlavor();
-                }
+            if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
+                if (deltaX < 0) nextFlavor(); else prevFlavor();
             }
         }
     </script>
