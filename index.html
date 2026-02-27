@@ -144,14 +144,6 @@
 
         .detailed-desc { font-size: 0.95rem; line-height: 1.5; margin-bottom: 15px; opacity: 0.9; }
 
-        .tagline {
-            font-size: 1rem; font-weight: 600; color: #ffd700;
-            margin-bottom: 20px; line-height: 1.4;
-            border-left: 4px solid #ffd700; padding-left: 12px; font-style: italic;
-        }
-
-        .text-content.dark-theme .tagline { color: #d87000; border-left-color: #d87000; }
-
         /* --- BENEFITS BOX --- */
         .distributor-box {
             background: rgba(255, 255, 255, 0.1);
@@ -166,6 +158,11 @@
         .distributor-box ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
         .distributor-box li { font-size: 0.95rem; font-weight: 500; display: flex; align-items: center; gap: 8px; }
         .distributor-box li::before { content: "\2713"; color: #ffd700; font-weight: bold; }
+
+        .text-content.dark-theme .distributor-box {
+            background: rgba(0, 0, 0, 0.05);
+            border-color: rgba(0, 0, 0, 0.2);
+        }
 
         /* --- FOOTER ACTIONS --- */
         .footer-action-area { display: flex; flex-direction: column; gap: 15px; margin-top: 5px; }
@@ -305,8 +302,6 @@
                 Fssai Registered Company in Kerala
             </p>
 
-            <p class="tagline">Maximum Quality, Minimum Rate. Kerala's first premium beverage offering real Nata de Coco at this unbeatable price.</p>
-
             <div class="distributor-box">
                 <h3>Why Partner With Crave?</h3>
                 <ul>
@@ -325,7 +320,7 @@
                 <div class="footer-bottom-row">
                     <div class="legal-footer">
                         <p><strong>CRAVE</strong></p>
-                        <p>CRAVE building, vaduthala<br>alappuzha 688535</p>
+                        <p>CRAVE building, Vaduthala<br>Alappuzha, Kerala 688535</p>
                     </div>
                     <div class="social-actions">
                         <a href="https://www.instagram.com/crave_juiz?utm_source=qr" target="_blank" class="action-btn icon-only" title="Instagram">
@@ -490,6 +485,3 @@
     </script>
 </body>
 </html>
-
-
-
