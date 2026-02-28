@@ -8,7 +8,8 @@
     <title>Cravejuiz | Premium Fresh Juice & Distributor Portal</title>
     <meta name="description" content="Discover Cravejuiz, Kerala's premium distributor of fresh, natural drinks. Whether you are looking for Crave Juice, healthy smoothies, or bulk distribution, we have the perfect blend.">
 
-    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon.png">
+    <link rel="apple-touch-icon" sizes="192x192" href="/favicon.png">
 
     <style>
         * {
@@ -144,21 +145,23 @@
 
         .detailed-desc { font-size: 0.95rem; line-height: 1.5; margin-bottom: 15px; opacity: 0.9; }
 
-        /* --- TAGLINE (Now White) --- */
+        /* --- TAGLINE STYLING --- */
         .tagline {
             font-size: 1rem; 
             font-weight: 600; 
-            color: #ffffff; /* Explicitly set to white */
+            color: #ffffff; /* White by default */
             margin-bottom: 20px; 
             line-height: 1.4;
-            border-left: 4px solid #ffffff; /* White accent border */
+            border-left: 4px solid #ffffff; 
             padding-left: 12px; 
             font-style: italic;
+            transition: color 0.4s ease, border-color 0.4s ease;
         }
 
+        /* Makes the tagline black when Litchi (dark-theme) is active */
         .text-content.dark-theme .tagline { 
-            color: #333333; /* Dark color so it is readable on Litchi flavor */
-            border-left-color: #333333; 
+            color: #222222 !important; 
+            border-left-color: #222222 !important; 
         }
 
         /* --- BENEFITS BOX --- */
@@ -281,14 +284,12 @@
 
             .nav-arrows { bottom: auto; top: 50%; transform: translateY(-50%); left: 0; width: 100%; justify-content: space-between; padding: 0 5%; }
 
-            /* SHIFTED FRUITS MORE TO THE LEFT */
             .fruit-1 img { width: 80px; } .fruit-2 img { width: 70px; } .fruit-3 img { width: 80px; } .fruit-4 img { width: 90px; } 
             #fruit-layer.active .fruit-1 { transform: translate(-130px, -130px) scale(1); }
             #fruit-layer.active .fruit-2 { transform: translate(60px, -160px) scale(1); }
             #fruit-layer.active .fruit-3 { transform: translate(-130px, 120px) scale(1); }
             #fruit-layer.active .fruit-4 { transform: translate(70px, 140px) scale(1); }
 
-            /* DOTS (PAGINATION) SAFELY IN BETWEEN BOTTLE AND TEXT */
             .controls { 
                 position: relative; 
                 top: auto; right: auto; transform: none; 
