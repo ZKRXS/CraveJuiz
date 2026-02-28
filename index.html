@@ -152,9 +152,9 @@
             margin-bottom: 20px; line-height: 1.4;
             border-left: 4px solid #ffffff; 
             padding-left: 12px; font-style: italic;
+            transition: color 0.4s ease, border-color 0.4s ease;
         }
 
-        /* Fixed Dark Theme CSS Selector for Litchi */
         .left-content.dark-theme .tagline { 
             color: #333333 !important; 
             border-left-color: #333333 !important; 
@@ -280,14 +280,12 @@
 
             .nav-arrows { bottom: auto; top: 50%; transform: translateY(-50%); left: 0; width: 100%; justify-content: space-between; padding: 0 5%; }
 
-            /* SHIFTED FRUITS MORE TO THE LEFT */
             .fruit-1 img { width: 80px; } .fruit-2 img { width: 70px; } .fruit-3 img { width: 80px; } .fruit-4 img { width: 90px; } 
             #fruit-layer.active .fruit-1 { transform: translate(-130px, -130px) scale(1); }
             #fruit-layer.active .fruit-2 { transform: translate(60px, -160px) scale(1); }
             #fruit-layer.active .fruit-3 { transform: translate(-130px, 120px) scale(1); }
             #fruit-layer.active .fruit-4 { transform: translate(70px, 140px) scale(1); }
 
-            /* DOTS (PAGINATION) SAFELY IN BETWEEN BOTTLE AND TEXT */
             .controls { 
                 position: relative; 
                 top: auto; right: auto; transform: none; 
@@ -313,7 +311,7 @@
 
         <div class="left-content" id="text-box">
             <h1 class="title" id="flavor-title">Green Apple</h1>
-            <p class="subtitle" id="flavor-desc">Crisp, refreshing, and perfectly tart.</p>
+            <p class="subtitle" id="flavor-desc">The Love One Craves.</p>
 
             <div class="product-meta">
                 <p class="price">₹20 <span>Retail</span></p>
@@ -387,10 +385,10 @@
     <script>
         const phoneNumber = "918157802440";
         const flavors = [
-            { name: "Green Apple", color1: "#85e027", color2: "#5a9e16", bottle: "cravejuizgreenapple.png", fruit: "greenapple.png" },
-            { name: "Mango", color1: "#ffc107", color2: "#ff9800", bottle: "cravejuizmango.png", fruit: "mango.png" },
-            { name: "Guava", color1: "#f48fb1", color2: "#d81b60", bottle: "cravejuizguava.png", fruit: "guava.png" },
-            { name: "Litchi", color1: "#ffffff", color2: "#cfd8dc", bottle: "cravejuizlitchi.png", fruit: "litchi.png" }
+            { name: "Green Apple", desc: "The Love One Craves.", color1: "#85e027", color2: "#5a9e16", bottle: "cravejuizgreenapple.png", fruit: "greenapple.png" },
+            { name: "Mango", desc: "Rich, tropical sweetness in every sip.", color1: "#ffc107", color2: "#ff9800", bottle: "cravejuizmango.png", fruit: "mango.png" },
+            { name: "Guava", desc: "Exotic, vibrant, and packed with flavor.", color1: "#f48fb1", color2: "#d81b60", bottle: "cravejuizguava.png", fruit: "guava.png" },
+            { name: "Litchi", desc: "Delicately sweet and beautifully floral.", color1: "#ffffff", color2: "#cfd8dc", bottle: "cravejuizlitchi.png", fruit: "litchi.png" }
         ];
 
         let currentIndex = 0;
@@ -406,6 +404,7 @@
         const bgContainer = document.getElementById('bg-container');
         const bgOverlay = document.getElementById('bg-overlay');
         const titleEl = document.getElementById('flavor-title');
+        const descEl = document.getElementById('flavor-desc');
         const detailedDescEl = document.getElementById('detailed-desc');
         const waBtn = document.getElementById('wa-btn');
         const bottleEl = document.getElementById('main-bottle');
@@ -466,9 +465,13 @@
 
             setTimeout(() => {
                 titleEl.textContent = data.name;
+                descEl.textContent = data.desc;
+                
                 detailedDescEl.innerHTML = `<strong>${data.name}</strong> flavoured drink with Nata De Coco pieces is a refreshing healthy alternative to soft drink. Nata De Coco jelly bits from Kerala grown coconuts add a bite to this refreshing flavourful drink.<br><br>Manufactured and distributed by: <strong>CRAVE</strong><br>Fssai Registered Company in Kerala`;
+                
                 updateWhatsAppLink(data.name);
                 bottleEl.src = data.bottle;
+                
                 const fruits = fruitLayer.querySelectorAll('img');
                 fruits.forEach(img => { img.src = data.fruit; });
 
