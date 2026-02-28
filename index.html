@@ -384,11 +384,13 @@
 
     <script>
         const phoneNumber = "918157802440";
+        
+        // --- UPDATED ALL FLAVORS WITH THE SAME DESIRED SUBTITLE ---
         const flavors = [
             { name: "Green Apple", desc: "The Love One Craves.", color1: "#85e027", color2: "#5a9e16", bottle: "cravejuizgreenapple.png", fruit: "greenapple.png" },
-            { name: "Mango", desc: "Rich, tropical sweetness in every sip.", color1: "#ffc107", color2: "#ff9800", bottle: "cravejuizmango.png", fruit: "mango.png" },
-            { name: "Guava", desc: "Exotic, vibrant, and packed with flavor.", color1: "#f48fb1", color2: "#d81b60", bottle: "cravejuizguava.png", fruit: "guava.png" },
-            { name: "Litchi", desc: "Delicately sweet and beautifully floral.", color1: "#ffffff", color2: "#cfd8dc", bottle: "cravejuizlitchi.png", fruit: "litchi.png" }
+            { name: "Mango", desc: "The Love One Craves.", color1: "#ffc107", color2: "#ff9800", bottle: "cravejuizmango.png", fruit: "mango.png" },
+            { name: "Guava", desc: "The Love One Craves.", color1: "#f48fb1", color2: "#d81b60", bottle: "cravejuizguava.png", fruit: "guava.png" },
+            { name: "Litchi", desc: "The Love One Craves.", color1: "#ffffff", color2: "#cfd8dc", bottle: "cravejuizlitchi.png", fruit: "litchi.png" }
         ];
 
         let currentIndex = 0;
@@ -464,8 +466,9 @@
             dots[currentIndex].classList.add('active');
 
             setTimeout(() => {
+                // UPDATE TEXT
                 titleEl.textContent = data.name;
-                descEl.textContent = data.desc;
+                descEl.textContent = data.desc; 
                 
                 detailedDescEl.innerHTML = `<strong>${data.name}</strong> flavoured drink with Nata De Coco pieces is a refreshing healthy alternative to soft drink. Nata De Coco jelly bits from Kerala grown coconuts add a bite to this refreshing flavourful drink.<br><br>Manufactured and distributed by: <strong>CRAVE</strong><br>Fssai Registered Company in Kerala`;
                 
